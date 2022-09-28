@@ -39,20 +39,20 @@ final class WalletTest extends TestCase
         $user->deposit(980);
         self::assertSame(1000, $user->balanceInt);
 
-        self::assertSame(3, $user->transactions()->count());
+        self::assertSame(3, $user->operations()->count());
 
         $user->withdraw($user->balanceInt);
         self::assertSame(0, $user->balanceInt);
 
-        self::assertSame(3, $user->transactions()->where([
+        self::assertSame(3, $user->operations()->where([
             'type' => Transaction::TYPE_DEPOSIT,
         ])->count());
 
-        self::assertSame(1, $user->transactions()->where([
+        self::assertSame(1, $user->operations()->where([
             'type' => Transaction::TYPE_WITHDRAW,
         ])->count());
 
-        self::assertSame(4, $user->transactions()->count());
+        self::assertSame(4, $user->operations()->count());
     }
 
     public function testInvalidDeposit(): void
@@ -266,7 +266,7 @@ final class WalletTest extends TestCase
         $user->deposit(100, null, false);
         self::assertSame(0, $user->balanceInt);
 
-        $user->transactions()
+        $user->operations()
             ->update([
                 'confirmed' => true,
             ])

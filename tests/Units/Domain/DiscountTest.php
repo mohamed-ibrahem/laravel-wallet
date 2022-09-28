@@ -101,13 +101,13 @@ final class DiscountTest extends TestCase
         self::assertInstanceOf(Transaction::class, $deposit);
 
         self::assertTrue($withdraw->is(
-            $buyer->transactions()
+            $buyer->operations()
                 ->where('type', Transaction::TYPE_WITHDRAW)
                 ->latest()
                 ->first()
         ));
 
-        self::assertTrue($deposit->is($product->transactions()->latest()->first()));
+        self::assertTrue($deposit->is($product->operations()->latest()->first()));
     }
 
     public function testRefund(): void

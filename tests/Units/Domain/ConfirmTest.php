@@ -303,8 +303,8 @@ final class ConfirmTest extends TestCase
             self::assertTrue($user2->wallet->resetConfirm($transfer->deposit)); // confirm => false
         });
 
-        self::assertSame(500, (int) $user1->transactions()->sum('amount'));
-        self::assertSame(500, (int) $user2->transactions()->sum('amount'));
+        self::assertSame(500, (int) $user1->operations()->sum('amount'));
+        self::assertSame(500, (int) $user2->operations()->sum('amount'));
 
         self::assertSame(500, $user1->balanceInt);
         self::assertSame(0, $user2->balanceInt);

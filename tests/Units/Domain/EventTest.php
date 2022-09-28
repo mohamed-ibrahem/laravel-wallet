@@ -136,7 +136,7 @@ final class EventTest extends TestCase
          * The balance has not changed. Balance update event will not be generated.
          */
         self::assertSame(0, $buyer->balanceInt);
-        self::assertCount(4, $buyer->transactions()->get());
+        self::assertCount(4, $buyer->operations()->get());
     }
 
     /**

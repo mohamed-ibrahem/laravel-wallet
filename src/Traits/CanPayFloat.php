@@ -18,7 +18,7 @@ trait CanPayFloat
         CanPay::transfer insteadof HasWalletFloat;
         CanPay::safeTransfer insteadof HasWalletFloat;
         CanPay::forceTransfer insteadof HasWalletFloat;
-        CanPay::transactions insteadof HasWalletFloat;
+        CanPay::operations insteadof HasWalletFloat;
         CanPay::transfers insteadof HasWalletFloat;
         CanPay::wallet insteadof HasWalletFloat;
         CanPay::getBalanceAttribute insteadof HasWalletFloat;

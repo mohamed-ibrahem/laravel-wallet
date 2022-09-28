@@ -89,7 +89,7 @@ trait HasWallet
     /**
      * all user actions on wallets will be in this method.
      */
-    public function transactions(): MorphMany
+    public function operations(): MorphMany
     {
         return app(CastServiceInterface::class)
             ->getHolder($this)

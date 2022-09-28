@@ -34,21 +34,21 @@ final class TransactionsFilterTest extends TestCase
             'account' => 'vendors',
         ]);
 
-        self::assertSame(4, $buyer->transactions()->count());
+        self::assertSame(4, $buyer->operations()->count());
 
-        $nullable = $buyer->transactions()
+        $nullable = $buyer->operations()
             ->whereNull('meta')
             ->count()
         ;
-        $customers = $buyer->transactions()
+        $customers = $buyer->operations()
             ->where('meta->account', 'customers')
             ->count()
         ;
-        $expenses = $buyer->transactions()
+        $expenses = $buyer->operations()
             ->where('meta->account', 'expenses')
             ->count()
         ;
-        $vendors = $buyer->transactions()
+        $vendors = $buyer->operations()
             ->where('meta->account', 'vendors')
             ->count()
         ;
@@ -58,7 +58,7 @@ final class TransactionsFilterTest extends TestCase
         self::assertSame(1, $expenses);
         self::assertSame(1, $vendors);
 
-        $countByPeriods = $buyer->transactions()
+        $countByPeriods = $buyer->operations()
             ->whereIn('meta->account', ['customers', 'expenses', 'vendors'])
             ->whereBetween('created_at', [now()->subDays(7), now()])
             ->count()
@@ -85,15 +85,15 @@ final class TransactionsFilterTest extends TestCase
         self::assertSame(500, $buyer1->balanceInt);
         self::assertSame(500, $buyer2->balanceInt);
 
-        self::assertSame(2, $buyer1->transactions()->count());
-        self::assertSame(1, $buyer2->transactions()->count());
+        self::assertSame(2, $buyer1->operations()->count());
+        self::assertSame(1, $buyer2->operations()->count());
 
-        $credits1 = $buyer1->transactions()
+        $credits1 = $buyer1->operations()
             ->where('meta->type', 'credit')
             ->count()
         ;
 
-        $credits2 = $buyer2->transactions()
+        $credits2 = $buyer2->operations()
             ->where('meta->type', 'credit')
             ->count()
         ;
@@ -113,7 +113,7 @@ final class TransactionsFilterTest extends TestCase
             }
         });
 
-        self::assertSame(21, $buyer->transactions()->count());
+        self::assertSame(21, $buyer->operations()->count());
 
         $query = Transaction::with('wallet')
             ->where('payable_id', $buyer->getKey())
@@ -147,7 +147,7 @@ final class TransactionsFilterTest extends TestCase
             }
         });
 
-        self::assertSame(21, $buyer->transactions()->count());
+        self::assertSame(21, $buyer->operations()->count());
 
         $walletTableName = (new Wallet())->getTable();
         $transactionTableName = (new Transaction())->getTable();

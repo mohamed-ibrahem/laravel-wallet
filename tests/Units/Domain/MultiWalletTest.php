@@ -103,7 +103,7 @@ final class MultiWalletTest extends TestCase
         self::assertSame($user->balanceInt, 0);
         self::assertSame($wallet->balanceInt, 1000);
 
-        self::assertSame($user->transactions()->count(), 3);
+        self::assertSame($user->operations()->count(), 3);
 
         $wallet->withdraw($wallet->balanceInt);
         self::assertSame($user->balanceInt, 0);
@@ -248,10 +248,10 @@ final class MultiWalletTest extends TestCase
         $eur->deposit(200);
         $eur->withdraw(50);
 
-        self::assertSame(3, $user->transactions()->count());
-        self::assertSame(3, $user->wallet->transactions()->count());
-        self::assertSame(3, $usd->transactions()->count());
-        self::assertSame(3, $eur->transactions()->count());
+        self::assertSame(3, $user->operations()->count());
+        self::assertSame(3, $user->wallet->operations()->count());
+        self::assertSame(3, $usd->operations()->count());
+        self::assertSame(3, $eur->operations()->count());
 
         self::assertSame(0, $user->walletTransactions()->count());
         self::assertSame(0, $user->wallet->walletTransactions()->count());

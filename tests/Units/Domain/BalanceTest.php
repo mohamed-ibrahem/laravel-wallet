@@ -144,7 +144,7 @@ final class BalanceTest extends TestCase
         $result = app(RegulatorServiceInterface::class)->increase($wallet, 100);
 
         // databases that do not support fk will not delete data... need to help them
-        $wallet->transactions()
+        $wallet->operations()
             ->where('wallet_id', $key)
             ->delete()
         ;
